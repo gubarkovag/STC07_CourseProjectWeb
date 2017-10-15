@@ -1,0 +1,57 @@
+td, th {
+    padding: 10px;
+}
+
+th {
+    color: rgb(212,75,56);
+}
+
+h1 {
+    text-align: center;
+    color: rgb(212,75,56);
+}
+
+.book-list-table, .book-list-table td, .book-list-table th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.application-list-table, .application-list-table td, .application-list-table th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.content {
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    text-align: center;
+}
+
+.contentBody {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.header {
+    position: relative;
+    margin: 5%;
+    text-align: right;
+}
+
+.error {
+    color: rgb(212,75,56);
+}
+
+.knopka {
+    color: #fff; /* цвет текста */
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    background: rgb(212,75,56); /* фон кнопки */
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+.knopka:hover { background: rgb(232,95,76); } /* при наведении курсора мышки */
+.knopka:active { background: rgb(152,15,0); } /* при нажатии */
