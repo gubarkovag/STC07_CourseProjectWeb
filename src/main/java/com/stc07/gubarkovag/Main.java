@@ -1,9 +1,10 @@
 package com.stc07.gubarkovag;
 
-import com.stc07.gubarkovag.db.dao.ApplicationDAO;
-import com.stc07.gubarkovag.db.dao.BookDAO;
-import com.stc07.gubarkovag.db.dao.UserDAO;
+import com.stc07.gubarkovag.db.dao.ApplicationDAOImpl;
+import com.stc07.gubarkovag.db.dao.BookDAOImpl;
+import com.stc07.gubarkovag.db.dao.UserDAOImpl;
 import static com.stc07.gubarkovag.jaxbutilities.JAXBActions.*;
+
 import com.stc07.gubarkovag.jaxbwrappers.Applications;
 import com.stc07.gubarkovag.jaxbwrappers.Books;
 import com.stc07.gubarkovag.jaxbwrappers.Users;
@@ -17,14 +18,14 @@ import java.util.Random;
 
 public class Main {
 
-    private static void clearDatabase() {
+    /*private static void clearDatabase() {
         try {
-            ApplicationDAO.deleteAll();
-            UserDAO.deleteAll();
-            BookDAO.deleteAll();
-        } catch (UserDAO.UserDAOException |
-                 BookDAO.BookDAOException |
-                 ApplicationDAO.ApplicationDAOException e) {
+            ApplicationDAOImpl.deleteAll();
+            UserDAOImpl.deleteAll();
+            BookDAOImpl.deleteAll();
+        } catch (UserDAOImpl.UserDAOException |
+                 BookDAOImpl.BookDAOException |
+                 ApplicationDAOImpl.ApplicationDAOException e) {
             e.printStackTrace();
         }
     }
@@ -116,9 +117,9 @@ public class Main {
         }
 
         try {
-            ApplicationDAO.insertAll(applications);
+            ApplicationDAOImpl.insertAll(applications);
             return applications;
-        } catch (ApplicationDAO.ApplicationDAOException e) {
+        } catch (ApplicationDAOImpl.ApplicationDAOException e) {
             e.printStackTrace();
             System.exit(1);
             return null;
@@ -135,11 +136,11 @@ public class Main {
         //System.exit(1);
 
         try {
-            UserDAO.insertAll(users);
-            BookDAO.insertAll(books);
-            //users = UserDAO.getAll();
-            //books = BookDAO.getAll();
-        } catch (UserDAO.UserDAOException | BookDAO.BookDAOException e) {
+            UserDAOImpl.insertAll(users);
+            BookDAOImpl.insertAll(books);
+            //users = UserDAOImpl.getAll();
+            //books = BookDAOImpl.getAll();
+        } catch (UserDAOImpl.UserDAOException | BookDAOImpl.BookDAOException e) {
             e.printStackTrace();
             System.exit(1);
         }
@@ -171,7 +172,7 @@ public class Main {
 
         clearDatabase();
 
-        /*Lock lock = new ReentrantLock();
+        *//*Lock lock = new ReentrantLock();
         Condition blockingPoolA = lock.newCondition();
 
         new Thread("UnmarshallUsers") {
@@ -180,8 +181,8 @@ public class Main {
                 lock.lock();
                 try {
                     blockingPoolA.await();
-                    UserDAO.insertAll(unMarshalledUsers.getUsers());
-                } catch (UserDAO.UserDAOException | InterruptedException e) {
+                    UserDAOImpl.insertAll(unMarshalledUsers.getUsers());
+                } catch (UserDAOImpl.UserDAOException | InterruptedException e) {
                     e.printStackTrace();
                 } finally {
                     lock.unlock();
@@ -193,8 +194,8 @@ public class Main {
             @Override
             public void run() {
                 try {
-                    BookDAO.insertAll(unMarshalledBooks.getBooks());
-                } catch (BookDAO.BookDAOException | InterruptedException e) {
+                    BookDAOImpl.insertAll(unMarshalledBooks.getBooks());
+                } catch (BookDAOImpl.BookDAOException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -204,20 +205,20 @@ public class Main {
             @Override
             public void run() {
                 try {
-                    ApplicationDAO.insertAll(unMarshalledApplications.getApplications());
-                } catch (ApplicationDAO.ApplicationDAOException e) {
+                    ApplicationDAOImpl.insertAll(unMarshalledApplications.getApplications());
+                } catch (ApplicationDAOImpl.ApplicationDAOException e) {
                     e.printStackTrace();
                 }
             }
-        }.start();*/
+        }.start();*//*
 
         try {
-            UserDAO.insertAll(unMarshalledUsers.getUsers());
-            BookDAO.insertAll(unMarshalledBooks.getBooks());
-            ApplicationDAO.insertAll(unMarshalledApplications.getApplications());
-        } catch (UserDAO.UserDAOException | BookDAO.BookDAOException | ApplicationDAO.ApplicationDAOException e) {
+            UserDAOImpl.insertAll(unMarshalledUsers.getUsers());
+            BookDAOImpl.insertAll(unMarshalledBooks.getBooks());
+            ApplicationDAOImpl.insertAll(unMarshalledApplications.getApplications());
+        } catch (UserDAOImpl.UserDAOException | BookDAOImpl.BookDAOException | ApplicationDAOImpl.ApplicationDAOException e) {
             e.printStackTrace();
             System.exit(1);
         }
-    }
+    }*/
 }

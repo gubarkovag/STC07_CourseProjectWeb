@@ -9,8 +9,38 @@
         <servlet-class>com.stc07.gubarkovag.servlets.LoginServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>AddUserServlet</servlet-name>
+        <servlet-class>com.stc07.gubarkovag.servlets.users.AddUserServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>AuthorizedUserServlet</servlet-name>
+        <servlet-class>com.stc07.gubarkovag.servlets.users.AuthorizedUserServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UsersServlet</servlet-name>
+        <servlet-class>com.stc07.gubarkovag.servlets.users.UsersServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AddUserServlet</servlet-name>
+        <url-pattern>/adduser</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AuthorizedUserServlet</servlet-name>
+        <url-pattern>/authorizeduser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsersServlet</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+
 </web-app>
