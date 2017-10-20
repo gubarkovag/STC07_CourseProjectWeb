@@ -12,6 +12,7 @@ public interface ApplicationDAO {
     boolean deleteAll() throws ApplicationDAOImpl.ApplicationDAOException;
     int insertOne(Application application) throws ApplicationDAOImpl.ApplicationDAOException;
     int[] insertAll(List<Application> applications) throws ApplicationDAOImpl.ApplicationDAOException;
-    int update(Application changeData, Application target) throws ApplicationDAOImpl.ApplicationDAOException;
-    int[] updateAll(Map<Application, Application> updateData) throws ApplicationDAOImpl.ApplicationDAOException;
+    int update(String status, Integer targetId) throws ApplicationDAOImpl.ApplicationDAOException;
+    int[] updateAll(Map<String, Integer> updateData) throws ApplicationDAOImpl.ApplicationDAOException;
+    boolean putRejectedToWaitingStatus(Integer userId) throws ApplicationDAOImpl.ApplicationDAOException;
 }

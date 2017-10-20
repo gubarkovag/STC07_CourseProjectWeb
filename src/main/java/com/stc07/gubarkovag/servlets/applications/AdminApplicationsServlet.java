@@ -1,16 +1,14 @@
-package com.stc07.gubarkovag.servlets.users;
+package com.stc07.gubarkovag.servlets.applications;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 
-public class AuthorizedUserServlet extends HttpServlet {
+public class AdminApplicationsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/pages/users/authorizeduser.jsp").forward(req, resp);
+        req.getRequestDispatcher("/pages/applications/adminviewapplications.jsp").forward(req, resp);
     }
 }

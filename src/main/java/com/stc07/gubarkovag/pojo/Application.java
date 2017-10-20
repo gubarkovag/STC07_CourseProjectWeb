@@ -19,6 +19,8 @@ public class Application implements Serializable {
     }
 
     @XmlElement
+    private Integer id;
+    @XmlElement
     private Integer user_id;
     @XmlElement
     private Integer book_id;
@@ -29,10 +31,25 @@ public class Application implements Serializable {
 
     }
 
+    public Application(Integer id, Integer user_id, Integer book_id, Status status) {
+        this.id = id;
+        this.user_id = user_id;
+        this.book_id = book_id;
+        this.status = status;
+    }
+
     public Application(Integer user_id, Integer book_id, Status status) {
         this.user_id = user_id;
         this.book_id = book_id;
         this.status = status;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getUser_id() {
@@ -62,8 +79,8 @@ public class Application implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Application: [user id = ").append(user_id).append(", book id = ")
-                .append(book_id).append(", status = ").append(status).append("]");
+        sb.append("Application: [id = ").append(id).append(", user id = ").append(user_id)
+                .append(", book id = ").append(book_id).append(", status = ").append(status).append("]");
 
         return sb.toString();
     }
@@ -75,6 +92,7 @@ public class Application implements Serializable {
 
         Application that = (Application) o;
 
+        if (!id.equals(that.id)) return false;
         if (!user_id.equals(that.user_id)) return false;
         if (!book_id.equals(that.book_id)) return false;
         return status == that.status;
@@ -82,7 +100,8 @@ public class Application implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = user_id.hashCode();
+        int result = id.hashCode();
+        result = 31 * result + user_id.hashCode();
         result = 31 * result + book_id.hashCode();
         result = 31 * result + status.hashCode();
         return result;

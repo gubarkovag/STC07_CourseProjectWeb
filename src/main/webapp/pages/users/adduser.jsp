@@ -1,17 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <t:template>
+    <jsp:include page="userheader.jsp"/>
     <div class="contentBody">
         <h2>Регистрация нового пользователя</h2>
         <c:choose>
-            <c:when test="${empty isUserExistMessage}">
+            <c:when test="${empty wrongReg}">
             </c:when>
             <c:otherwise>
-                <h3 class="error">${isUserExistMessage}</h3>
+                <h3 class="error">${wrongReg}</h3>
             </c:otherwise>
         </c:choose>
-        <form id="addUserForm" method="post" action="<c:url value=""/>">
+        <form id="addUserForm" method="post" action="<c:url value="/site/addUser"/>">
             <table>
                 <tr>
                     <td>
@@ -31,7 +33,8 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <a href="<c:url value="/adduser"/>">Регистрация</a>
+                        <input type="submit" value="Регистрация"/>
+                        <%--<a href="<c:url value="/addUser"/>">Регистрация</a>--%>
                     </td>
                 </tr>
             </table>

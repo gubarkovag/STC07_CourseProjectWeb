@@ -9,10 +9,38 @@
         <servlet-class>com.stc07.gubarkovag.servlets.LoginServlet</servlet-class>
     </servlet>
 
+
+    <servlet>
+        <servlet-name>UsersServlet</servlet-name>
+        <servlet-class>com.stc07.gubarkovag.servlets.users.UsersServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>EditUserServlet</servlet-name>
+        <servlet-class>com.stc07.gubarkovag.servlets.users.EditUserServlet</servlet-class>
+    </servlet>
+
     <servlet>
         <servlet-name>AddUserServlet</servlet-name>
         <servlet-class>com.stc07.gubarkovag.servlets.users.AddUserServlet</servlet-class>
     </servlet>
+
+
+    <servlet>
+        <servlet-name>ApplicationsServlet</servlet-name>
+        <servlet-class>com.stc07.gubarkovag.servlets.applications.ApplicationsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>AddApplicationServlet</servlet-name>
+        <servlet-class>com.stc07.gubarkovag.servlets.applications.AddApplicationServlet</servlet-class>
+    </servlet>
+
+    <!--<servlet>
+        <servlet-name>AdminApplicationsServlet</servlet-name>
+        <servlet-class>com.stc07.gubarkovag.servlets.applications.AdminApplicationsServlet</servlet-class>
+    </servlet>-->
+
 
     <servlet>
         <servlet-name>AuthorizedUserServlet</servlet-name>
@@ -20,27 +48,91 @@
     </servlet>
 
     <servlet>
-        <servlet-name>UsersServlet</servlet-name>
-        <servlet-class>com.stc07.gubarkovag.servlets.users.UsersServlet</servlet-class>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>com.stc07.gubarkovag.servlets.users.AdminServlet</servlet-class>
     </servlet>
+
 
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
+
+
+    <servlet-mapping>
+        <servlet-name>UsersServlet</servlet-name>
+        <url-pattern>/site/users</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UsersServlet</servlet-name>
+        <url-pattern>/site/deleteUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EditUserServlet</servlet-name>
+        <url-pattern>/site/editUser</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>AddUserServlet</servlet-name>
-        <url-pattern>/adduser</url-pattern>
+        <url-pattern>/site/addUser</url-pattern>
     </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>AddApplicationServlet</servlet-name>
+        <url-pattern>/site/addApplication</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApplicationsServlet</servlet-name>
+        <url-pattern>/site/approveApplication</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApplicationsServlet</servlet-name>
+        <url-pattern>/site/rejectApplication</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApplicationsServlet</servlet-name>
+        <url-pattern>/site/adminViewApplications</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApplicationsServlet</servlet-name>
+        <url-pattern>/viewApprovedApplications</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApplicationsServlet</servlet-name>
+        <url-pattern>/site/viewRejectedApplications</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApplicationsServlet</servlet-name>
+        <url-pattern>/site/sendRejectedApplications</url-pattern>
+    </servlet-mapping>
+
 
     <servlet-mapping>
         <servlet-name>AuthorizedUserServlet</servlet-name>
-        <url-pattern>/authorizeduser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UsersServlet</servlet-name>
-        <url-pattern>/users</url-pattern>
+        <url-pattern>/site/authorizeduser</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/site/admin</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>Login</filter-name>
+        <filter-class>com.stc07.gubarkovag.servlets.filters.AuthFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Login</filter-name>
+        <url-pattern>/site/*</url-pattern>
+    </filter-mapping>
 </web-app>

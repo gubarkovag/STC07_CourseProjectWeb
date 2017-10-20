@@ -26,8 +26,12 @@ public class AddUserServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
+        if (login == "" || password == "") {
+            req.setAttribute("wrongReg", "Логин и пароль не должны быть пустыми");
+            req.getRequestDispatcher("/pages/users/adduser.jsp").forward(req, resp);
+        }
         if (as.auth(login, password) != null) {
-            req.setAttribute("isUserExistMessage", "Пользователь с такими данными уже существует");
+            req.setAttribute("wrongReg", "Пользователь с такими данными уже существует");
             req.getRequestDispatcher("/pages/users/adduser.jsp").forward(req, resp);
         } else {
             try {
@@ -35,7 +39,7 @@ public class AddUserServlet extends HttpServlet {
             } catch (UserServiceImpl.UserServiceException e) {
                 e.printStackTrace();
             }
-            resp.sendRedirect("/courseprojectweb/authorizeduser");
+            resp.sendRedirect("/courseprojectweb/");
         }
     }
 }

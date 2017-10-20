@@ -1,5 +1,6 @@
 package com.stc07.gubarkovag.servlets;
 
+import com.stc07.gubarkovag.logandmailutils.MailSender;
 import com.stc07.gubarkovag.pojo.User;
 import com.stc07.gubarkovag.services.AuthorizationService;
 import com.stc07.gubarkovag.services.AuthorizationServiceImpl;
@@ -16,6 +17,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().removeAttribute("user");
         req.getRequestDispatcher("/pages/login.jsp").forward(req, resp);
     }
 
@@ -26,10 +28,19 @@ public class LoginServlet extends HttpServlet {
 
         Map<Boolean, User> authInfo;
         if ((authInfo = as.auth(login, password)) != null) {
-            req.getSession().setAttribute("isAuth", true);
-            resp.sendRedirect("/courseprojectweb/" + authInfo.get(true).getRole().toString().toLowerCase());
+            MailSender.sendEmail(login);
+            //req.getSession().setAttribute("isAuth", true);
+
+            User user = authInfo.get(true);
+
+            req.getSession().setAttribute("user", user);
+
+            resp.sendRedirect("/courseprojectweb/site/" + authInfo.get(true).getRole().toString().toLowerCase());
         } else {
-            req.setAttribute("isUserNotExistMessage", "Пользователь с такими данными не существует");
+            if (login == "" || password == "")
+                req.setAttribute("wrongAuth", "Логин и пароль не должны быть пустыми");
+            else
+                req.setAttribute("wrongAuth", "Пользователь с такими данными не существует");
             req.getRequestDispatcher("/pages/login.jsp").forward(req, resp);
         }
     }

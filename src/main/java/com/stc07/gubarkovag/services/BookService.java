@@ -14,4 +14,8 @@ public interface BookService {
     int[] insertAll(List<Book> books) throws BookServiceImpl.BookServiceException;
     int update(Book changeData, Integer targetId) throws BookServiceImpl.BookServiceException;
     int[] updateAll(Map<Book, Integer> updateData) throws BookServiceImpl.BookServiceException;
+    int findMaxId() throws BookServiceImpl.BookServiceException;
+    List<Book> getAppsByStatus(String status) throws BookServiceImpl.BookServiceException;
+    List<Book> getAppsByStatusAndUser(String status, Integer userId) throws BookServiceImpl.BookServiceException;
+
 }

@@ -16,4 +16,5 @@ dependencies {
     compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1206-jdbc42'
     compile group: 'jstl', name: 'jstl', version: '1.2'
     compile group: 'log4j', name: 'log4j', version: '1.2.16'
+    compile group: 'javax.mail', name: 'mail', version: '1.4'
 }

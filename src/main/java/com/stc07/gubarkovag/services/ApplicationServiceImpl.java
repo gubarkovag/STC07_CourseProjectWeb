@@ -73,9 +73,9 @@ public class ApplicationServiceImpl implements  ApplicationService{
     }
 
     @Override
-    public int update(Application changeData, Application target) throws ApplicationServiceException {
+    public int update(String status, Integer targetId) throws ApplicationServiceException {
         try {
-            return applicationDAO.update(changeData, target);
+            return applicationDAO.update(status, targetId);
         } catch (ApplicationDAOImpl.ApplicationDAOException e) {
             e.printStackTrace();
             throw new ApplicationServiceException();
@@ -83,9 +83,19 @@ public class ApplicationServiceImpl implements  ApplicationService{
     }
 
     @Override
-    public int[] updateAll(Map<Application, Application> updateData) throws ApplicationServiceException {
+    public int[] updateAll(Map<String, Integer> updateData) throws ApplicationServiceException {
         try {
             return applicationDAO.updateAll(updateData);
+        } catch (ApplicationDAOImpl.ApplicationDAOException e) {
+            e.printStackTrace();
+            throw new ApplicationServiceException();
+        }
+    }
+
+    @Override
+    public boolean putRejectedToWaitingStatus(Integer userId) throws ApplicationServiceException {
+        try {
+            return applicationDAO.putRejectedToWaitingStatus(userId);
         } catch (ApplicationDAOImpl.ApplicationDAOException e) {
             e.printStackTrace();
             throw new ApplicationServiceException();

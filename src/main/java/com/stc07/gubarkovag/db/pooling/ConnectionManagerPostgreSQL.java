@@ -1,4 +1,4 @@
-package com.stc07.gubarkovag.db;
+package com.stc07.gubarkovag.db.pooling;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

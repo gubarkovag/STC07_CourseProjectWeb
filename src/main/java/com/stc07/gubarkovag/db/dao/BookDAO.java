@@ -14,4 +14,7 @@ public interface BookDAO {
     int[] insertAll(List<Book> books) throws BookDAOImpl.BookDAOException;
     int update(Book changeData, Integer targetId) throws BookDAOImpl.BookDAOException;
     int[] updateAll(Map<Book, Integer> updateData) throws BookDAOImpl.BookDAOException;
+    int findMaxId() throws BookDAOImpl.BookDAOException;
+    List<Book> getAppsByStatus(String status) throws BookDAOImpl.BookDAOException;
+    List<Book> getAppsByStatusAndUser(String status, Integer userId) throws BookDAOImpl.BookDAOException;
 }

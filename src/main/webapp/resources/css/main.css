@@ -6,7 +6,7 @@ th {
     color: rgb(212,75,56);
 }
 
-h1 {
+h1, h2, h3 {
     text-align: center;
     color: rgb(212,75,56);
 }
@@ -37,8 +37,14 @@ h1 {
 
 .header {
     position: relative;
-    margin: 5%;
+    margin: 2%;
     text-align: right;
+}
+
+.viewappsheader {
+    position: relative;
+    margin: 2%;
+    text-align: left;
 }
 
 .error {

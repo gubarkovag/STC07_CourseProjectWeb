@@ -13,6 +13,26 @@ public class BookServiceImpl implements BookService {
     private static BookDAO bookDAO = new BookDAOImpl();
 
     @Override
+    public List<Book> getAppsByStatus(String status) throws BookServiceException {
+        try {
+            return bookDAO.getAppsByStatus(status);
+        } catch (BookDAOImpl.BookDAOException e) {
+            e.printStackTrace();
+            throw new BookServiceException();
+        }
+    }
+
+    @Override
+    public List<Book> getAppsByStatusAndUser(String status, Integer userId) throws BookServiceException {
+        try {
+            return bookDAO.getAppsByStatusAndUser(status, userId);
+        } catch (BookDAOImpl.BookDAOException e) {
+            e.printStackTrace();
+            throw new BookServiceException();
+        }
+    }
+
+    @Override
     public List<Book> getAll() throws BookServiceException {
         try {
             return bookDAO.getAll();
@@ -86,6 +106,16 @@ public class BookServiceImpl implements BookService {
     public int[] updateAll(Map<Book, Integer> updateData) throws BookServiceException {
         try {
             return bookDAO.updateAll(updateData);
+        } catch (BookDAOImpl.BookDAOException e) {
+            e.printStackTrace();
+            throw new BookServiceException();
+        }
+    }
+
+    @Override
+    public int findMaxId() throws BookServiceException {
+        try {
+            return bookDAO.findMaxId();
         } catch (BookDAOImpl.BookDAOException e) {
             e.printStackTrace();
             throw new BookServiceException();

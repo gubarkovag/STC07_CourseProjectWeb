@@ -3,12 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:template>
+    <jsp:include page="applications/viewappsheader.jsp"/>
     <div class="contentBody">
         <c:choose>
-            <c:when test="${empty isUserNotExistMessage}">
+            <c:when test="${empty wrongAuth}">
             </c:when>
             <c:otherwise>
-                <h3 class="error">${isUserNotExistMessage}</h3>
+                <h3 class="error">${wrongAuth}</h3>
             </c:otherwise>
         </c:choose>
         <form id="authForm" method="post" action="<c:url value="/"/>">
@@ -34,7 +35,7 @@
                         <input type="submit" value="Вход"/>
                     </td>
                     <td>
-                        <a href="<c:url value="/adduser"/>">Регистрация</a>
+                        <a href="<c:url value="/site/addUser"/>">Регистрация</a>
                     </td>
                 </tr>
             </table>

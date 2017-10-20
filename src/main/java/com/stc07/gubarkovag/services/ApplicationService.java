@@ -12,6 +12,7 @@ public interface ApplicationService {
     boolean deleteAll() throws ApplicationServiceImpl.ApplicationServiceException;
     int insertOne(Application application) throws ApplicationServiceImpl.ApplicationServiceException;
     int[] insertAll(List<Application> applications) throws ApplicationServiceImpl.ApplicationServiceException;
-    int update(Application changeData, Application target) throws ApplicationServiceImpl.ApplicationServiceException;
-    int[] updateAll(Map<Application, Application> updateData) throws ApplicationServiceImpl.ApplicationServiceException;
+    int update(String status, Integer targetId) throws ApplicationServiceImpl.ApplicationServiceException;
+    int[] updateAll(Map<String, Integer> updateData) throws ApplicationServiceImpl.ApplicationServiceException;
+    boolean putRejectedToWaitingStatus(Integer userId) throws ApplicationServiceImpl.ApplicationServiceException;
 }

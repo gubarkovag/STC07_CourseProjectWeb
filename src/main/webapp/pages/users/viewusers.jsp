@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:template>
-  <jsp:include page="adminheader.jsp"/>
+  <jsp:include page="userheader.jsp"/>
   <div class="contentBody">
     <c:choose>
   <c:when test="${empty users}">
@@ -23,8 +23,8 @@
           <td>${user.login}</td>
           <td>${user.password}</td>
           <td>${user.role}</td>
-          <td><a href="<c:url value="editUser?id=${user.id}"/>">Редактировать</a></td>
-          <td><a href="<c:url value="deleteUser/${user.id}"/>">Удалить</a></td>
+          <td><a href="<c:url value="/site/editUser?id=${user.id}"/>">Редактировать</a></td>
+          <td><a href="<c:url value="/site/deleteUser?id=${user.id}"/>">Удалить</a></td>
         </tr>
       </c:forEach>
     </table>
