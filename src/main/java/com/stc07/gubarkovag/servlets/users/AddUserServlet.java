@@ -5,6 +5,7 @@ import com.stc07.gubarkovag.services.AuthorizationService;
 import com.stc07.gubarkovag.services.AuthorizationServiceImpl;
 import com.stc07.gubarkovag.services.UserService;
 import com.stc07.gubarkovag.services.UserServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AddUserServlet extends HttpServlet {
+    private static Logger logger = Logger.getLogger(AddUserServlet.class);
+
     private static AuthorizationService as = new AuthorizationServiceImpl();
     private static UserService userService = new UserServiceImpl();
 
@@ -37,7 +40,10 @@ public class AddUserServlet extends HttpServlet {
             try {
                 userService.insertOne(new User(login, password, User.Role.AUTHORIZEDUSER));
             } catch (UserServiceImpl.UserServiceException e) {
-                e.printStackTrace();
+                logger.error(new StringBuilder()
+                        .append(e.getMessage()).append(System.lineSeparator())
+                        .append(e.getStackTrace()).toString());
+                //e.printStackTrace();
             }
             resp.sendRedirect("/courseprojectweb/");
         }

@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 
         Map<Boolean, User> authInfo;
         if ((authInfo = as.auth(login, password)) != null) {
-            MailSender.sendEmail(login);
+            //MailSender.sendEmail(login);
             //req.getSession().setAttribute("isAuth", true);
 
             User user = authInfo.get(true);

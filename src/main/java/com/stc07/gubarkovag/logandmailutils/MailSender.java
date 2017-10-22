@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -22,7 +21,7 @@ public class MailSender {
         } catch (IOException e) {
             logger.error(new StringBuilder()
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
         }
 
         Session session = Session.getDefaultInstance(props,
@@ -46,7 +45,10 @@ public class MailSender {
 
             Transport.send(message);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
         }
 
     }

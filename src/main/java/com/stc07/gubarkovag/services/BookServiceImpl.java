@@ -3,11 +3,14 @@ package com.stc07.gubarkovag.services;
 import com.stc07.gubarkovag.db.dao.BookDAO;
 import com.stc07.gubarkovag.db.dao.BookDAOImpl;
 import com.stc07.gubarkovag.pojo.Book;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
 
 public class BookServiceImpl implements BookService {
+    private static final Logger logger = Logger.getLogger(BookServiceImpl.class);
+
     public static class BookServiceException extends Exception {}
 
     private static BookDAO bookDAO = new BookDAOImpl();
@@ -17,7 +20,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.getAppsByStatus(status);
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -27,7 +33,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.getAppsByStatusAndUser(status, userId);
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -37,7 +46,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.getAll();
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -47,7 +59,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.getById(id);
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -57,7 +72,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.deleteById(id);
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -67,7 +85,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.deleteAll();
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -77,7 +98,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.insertOne(book);
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -87,7 +111,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.insertAll(books);
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -97,7 +124,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.update(changeData, targetId);
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -107,7 +137,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.updateAll(updateData);
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }
@@ -117,7 +150,10 @@ public class BookServiceImpl implements BookService {
         try {
             return bookDAO.findMaxId();
         } catch (BookDAOImpl.BookDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new BookServiceException();
         }
     }

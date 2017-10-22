@@ -1,12 +1,12 @@
 package com.stc07.gubarkovag.servlets.applications;
 
-import com.stc07.gubarkovag.pojo.Application;
 import com.stc07.gubarkovag.pojo.Book;
 import com.stc07.gubarkovag.pojo.User;
 import com.stc07.gubarkovag.services.ApplicationService;
 import com.stc07.gubarkovag.services.ApplicationServiceImpl;
 import com.stc07.gubarkovag.services.BookService;
 import com.stc07.gubarkovag.services.BookServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class ApplicationsServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(ApplicationsServlet.class);
+
     private static ApplicationService applicationService = new ApplicationServiceImpl();
     private static BookService bookService = new BookServiceImpl();
 
@@ -64,9 +66,11 @@ public class ApplicationsServlet extends HttpServlet {
                     resp.sendRedirect("/courseprojectweb/adminViewApplications");
                     break;
             }
-        } catch (ApplicationServiceImpl.ApplicationServiceException |
-                BookServiceImpl.BookServiceException e) {
-            e.printStackTrace();
+        } catch (ApplicationServiceImpl.ApplicationServiceException | BookServiceImpl.BookServiceException e) {
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
         }
     }
 }

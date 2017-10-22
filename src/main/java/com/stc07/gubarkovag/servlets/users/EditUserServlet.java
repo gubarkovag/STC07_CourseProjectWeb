@@ -3,6 +3,7 @@ package com.stc07.gubarkovag.servlets.users;
 import com.stc07.gubarkovag.pojo.User;
 import com.stc07.gubarkovag.services.UserService;
 import com.stc07.gubarkovag.services.UserServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EditUserServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(EditUserServlet.class);
+
     private static UserService userService = new UserServiceImpl();
 
     @Override
@@ -19,7 +22,10 @@ public class EditUserServlet extends HttpServlet {
         try {
             user = userService.getById(Integer.valueOf(req.getParameter("id")));
         } catch (UserServiceImpl.UserServiceException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
         }
         req.setAttribute("user", user);
         req.getRequestDispatcher("/pages/users/edituser.jsp").forward(req, resp);
@@ -36,7 +42,10 @@ public class EditUserServlet extends HttpServlet {
         try {
             userService.update(user, user.getId());
         } catch (UserServiceImpl.UserServiceException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
         }
 
         resp.sendRedirect("/courseprojectweb/site/users");

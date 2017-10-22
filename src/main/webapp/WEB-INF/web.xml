@@ -53,6 +53,11 @@
     </servlet>
 
 
+    <listener>
+        <listener-class>com.stc07.gubarkovag.servlets.listeners.SessionAttributeSetter</listener-class>
+    </listener>
+
+
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/</url-pattern>

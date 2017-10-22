@@ -7,6 +7,7 @@ import com.stc07.gubarkovag.services.ApplicationService;
 import com.stc07.gubarkovag.services.ApplicationServiceImpl;
 import com.stc07.gubarkovag.services.BookService;
 import com.stc07.gubarkovag.services.BookServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AddApplicationServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(AddApplicationServlet.class);
+
     private static BookService bookService = new BookServiceImpl();
     private static ApplicationService applicationService = new ApplicationServiceImpl();
 
@@ -39,9 +42,11 @@ public class AddApplicationServlet extends HttpServlet {
             int bookId = bookService.findMaxId();
             Application application = new Application(userId, bookId, Application.Status.WAITING);
             applicationService.insertOne(application);
-        } catch (BookServiceImpl.BookServiceException |
-                ApplicationServiceImpl.ApplicationServiceException e) {
-            e.printStackTrace();
+        } catch (BookServiceImpl.BookServiceException | ApplicationServiceImpl.ApplicationServiceException e) {
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+             //e.printStackTrace();
         }
 
         resp.sendRedirect("/site/courseprojectweb/" + String.valueOf(user.getRole()).toLowerCase());

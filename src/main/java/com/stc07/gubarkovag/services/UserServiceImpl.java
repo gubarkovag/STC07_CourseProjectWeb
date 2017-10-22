@@ -3,11 +3,14 @@ package com.stc07.gubarkovag.services;
 import com.stc07.gubarkovag.db.dao.UserDAO;
 import com.stc07.gubarkovag.db.dao.UserDAOImpl;
 import com.stc07.gubarkovag.pojo.User;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
 
 public class UserServiceImpl implements UserService {
+    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
+
     public static class UserServiceException extends Exception {}
 
     private static UserDAO userDAO = new UserDAOImpl();
@@ -17,7 +20,10 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.getAll();
         } catch (UserDAOImpl.UserDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new UserServiceException();
         }
     }
@@ -27,7 +33,10 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.getById(id);
         } catch (UserDAOImpl.UserDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new UserServiceException();
         }
     }
@@ -37,7 +46,10 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.deleteById(id);
         } catch (UserDAOImpl.UserDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new UserServiceException();
         }
     }
@@ -47,7 +59,10 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.deleteAll();
         } catch (UserDAOImpl.UserDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new UserServiceException();
         }
     }
@@ -57,7 +72,10 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.insertOne(user);
         } catch (UserDAOImpl.UserDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new UserServiceException();
         }
     }
@@ -67,7 +85,10 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.insertAll(users);
         } catch (UserDAOImpl.UserDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new UserServiceException();
         }
     }
@@ -77,7 +98,10 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.update(changeData, targetId);
         } catch (UserDAOImpl.UserDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new UserServiceException();
         }
     }
@@ -87,7 +111,10 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.updateAll(updateData);
         } catch (UserDAOImpl.UserDAOException e) {
-            e.printStackTrace();
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+            //e.printStackTrace();
             throw new UserServiceException();
         }
     }

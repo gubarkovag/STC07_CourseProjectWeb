@@ -23,10 +23,10 @@ public class BookDAOImpl implements BookDAO {
     }*/
 
     public List<Book> getAll() throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         List<Book> bookList = new ArrayList<>();
         logger.info("get all books query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             Statement statement = currentCon/*manager.getConnection()*/.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from public.\"book\"");
             while(resultSet.next()) {
@@ -37,23 +37,24 @@ public class BookDAOImpl implements BookDAO {
                         resultSet.getString("genre"));
 
                 bookList.add(book);
-                jdbcConnectionsPool.returnObject(currentCon);
             }
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
 
         return bookList;
     }
 
     public Book getById(Integer id) throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         Book book = null;
         logger.info("get book by id: " + id + " query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("select * from public.\"book\" where id = ?");
             statement.setInt(1, id);
@@ -65,57 +66,60 @@ public class BookDAOImpl implements BookDAO {
                     resultSet.getString("genre"),
                     resultSet.getString("name"));
 
-            jdbcConnectionsPool.returnObject(currentCon);
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
 
         return book;
     }
 
     public boolean deleteById(Integer id) throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         PreparedStatement statement = null;
         logger.info("delete book with id: " + id + " query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("delete from public.\"book\" where id = ?");
             statement.setInt(1, id);
 
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.execute();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     public boolean deleteAll() throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("delete all books query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             Statement statement = currentCon/*manager.getConnection()*/
                     .createStatement();
 
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.execute("delete from public.\"book\"");
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     public int insertOne(Book book) throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("insert book:" + System.lineSeparator() + book + System.lineSeparator() + " query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("INSERT INTO public.\"book\"(user_id, name, genre)" +
                             " VALUES(?, ?, ?)");
@@ -126,20 +130,21 @@ public class BookDAOImpl implements BookDAO {
             statement.setString(3,
                     book.getGenre());
 
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.executeUpdate();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     public int[] insertAll(List<Book> books) throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("insert set of books query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("INSERT INTO public.\"book\"(user_id, name, genre)" +
                             " VALUES(?, ?, ?)");
@@ -154,20 +159,21 @@ public class BookDAOImpl implements BookDAO {
                 statement.addBatch();
             }
 
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.executeBatch();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     public int update(Book changeData, Integer targetId) throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("update book with id " + targetId + " query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("update public.\"book\" set user_id = ?, name = ?, genre = ?" +
                             " where id = ?");
@@ -176,20 +182,21 @@ public class BookDAOImpl implements BookDAO {
             statement.setString(3, changeData.getGenre());
             statement.setInt(4, targetId);
 
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.executeUpdate();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     public int[] updateAll(Map<Book, Integer> updateData) throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("update set of books query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("update public.\"book\" set user_id = ?, name = ?, genre = ?" +
                             " where id = ?");
@@ -205,22 +212,23 @@ public class BookDAOImpl implements BookDAO {
                 statement.addBatch();
             }
 
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.executeBatch();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     @Override
     public List<Book> getAppsByStatus(String status) throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("get books/applications by status " + status);
         List<Book> bookList = new ArrayList<>();
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             Statement statement = currentCon/*manager.getConnection()*/.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from public.\"book\"" +
                     " where id in (select book_id from public.\"application\" where status = \'" + status + "\')");
@@ -232,13 +240,14 @@ public class BookDAOImpl implements BookDAO {
                         resultSet.getString("genre"));
 
                 bookList.add(book);
-                jdbcConnectionsPool.returnObject(currentCon);
             }
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
 
         return bookList;
@@ -246,10 +255,10 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public List<Book> getAppsByStatusAndUser(String status, Integer userId) throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         List<Book> bookList = new ArrayList<>();
         logger.info("get books/applications by status " + status + " and userId " + userId);
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             Statement statement = currentCon/*manager.getConnection()*/.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from public.\"book\"" +
                     " where user_id = " + userId +
@@ -262,13 +271,14 @@ public class BookDAOImpl implements BookDAO {
                         resultSet.getString("genre"));
 
                 bookList.add(book);
-                jdbcConnectionsPool.returnObject(currentCon);
             }
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
 
         return bookList;
@@ -276,22 +286,22 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public int findMaxId() throws BookDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         List<Book> bookList = new ArrayList<>();
         logger.info("find max recent id in books table");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             Statement statement = currentCon/*manager.getConnection()*/.createStatement();
             ResultSet resultSet = statement.executeQuery("select max(id) from public.\"book\"");
             if (resultSet.next()) {
                 return resultSet.getInt("max");
             }
-
-            jdbcConnectionsPool.returnObject(currentCon);
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString()); //e.printStackTrace();
+                    .append(e.getStackTrace()).toString()); //e.printStackTrace();
             throw new BookDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
 
         return 0;

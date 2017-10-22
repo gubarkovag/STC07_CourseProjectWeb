@@ -25,10 +25,10 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     }*/
 
     public List<Application> getAll() throws ApplicationDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         List<Application> applicationList = new ArrayList<>();
         logger.info("get all applications query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             Statement statement = currentCon/*manager.getConnection()*/.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from public.\"application\"");
             while(resultSet.next()) {
@@ -40,24 +40,24 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 
                 applicationList.add(application);
             }
-
-            jdbcConnectionsPool.returnObject(currentCon);
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
             //e.printStackTrace();
             throw new ApplicationDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
 
         return applicationList;
     }
 
     public Application getById(Integer id) throws ApplicationDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         Application application = null;
         logger.info("get application by id "+ id + " query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("select * from public.\"application\" where id = ?");
             statement.setInt(1, id);
@@ -68,48 +68,49 @@ public class ApplicationDAOImpl implements ApplicationDAO {
                     resultSet.getInt("book_id"),
                     resultSet.getInt("user_id"),
                     Application.Status.valueOf(resultSet.getString("status")));
-
-            jdbcConnectionsPool.returnObject(currentCon);
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
             //e.printStackTrace();
             throw new ApplicationDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
 
         return application;
     }
 
     public boolean deleteById(Integer id) throws ApplicationDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         PreparedStatement statement = null;
         logger.info("delete application by id " + id + " query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("delete from public.\"application\" where id = ?");
             statement.setInt(1, id);
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.execute();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
             //e.printStackTrace();
             throw new ApplicationDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     public boolean deleteAll() throws ApplicationDAOException {
-        logger.info("delete all applications query");
         Connection currentCon = jdbcConnectionsPool.borrowObject();
+        logger.info("delete all applications query");
         try {
             Statement statement = currentCon/*manager.getConnection()*/.createStatement();
             return statement.execute("delete from public.\"application\"");
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
             //e.printStackTrace();
             throw new ApplicationDAOException();
         } finally {
@@ -118,9 +119,9 @@ public class ApplicationDAOImpl implements ApplicationDAO {
     }
 
     public int insertOne(Application application) throws ApplicationDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("insert application:" + System.lineSeparator() + application + System.lineSeparator() + " query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("INSERT INTO public.\"application\"(user_id, book_id, status)" +
                             " VALUES(?, ?, ?)");
@@ -130,22 +131,22 @@ public class ApplicationDAOImpl implements ApplicationDAO {
                     application.getBook_id());
             statement.setString(3,
                     application.getStatus().toString());
-
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.executeUpdate();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
             //e.printStackTrace();
             throw new ApplicationDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     public int[] insertAll(List<Application> applications) throws ApplicationDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("insert set of applications query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("INSERT INTO public.\"application\"(user_id, book_id, status)" +
                             " VALUES(?, ?, ?)");
@@ -159,43 +160,44 @@ public class ApplicationDAOImpl implements ApplicationDAO {
 
                 statement.addBatch();
             }
-
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.executeBatch();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
             //e.printStackTrace();
             throw new ApplicationDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     public int update(String status, Integer targetId) throws ApplicationDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("set status " + status + " to application with id " + targetId + " query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("update public.\"application\" set status = ?" +
                             " where book_id = ?");
             statement.setString(1, status);
             statement.setInt(2, targetId);
 
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.executeUpdate();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
             //e.printStackTrace();
             throw new ApplicationDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     public int[] updateAll(Map<String, Integer> updateData) throws ApplicationDAOException {
+        Connection currentCon = jdbcConnectionsPool.borrowObject();
         logger.info("update all given applications query");
         try {
-            Connection currentCon = jdbcConnectionsPool.borrowObject();
             PreparedStatement statement = currentCon/*manager.getConnection()*/
                     .prepareStatement("update public.\"application\" set status = ?" +
                             " where id = ?");
@@ -209,21 +211,22 @@ public class ApplicationDAOImpl implements ApplicationDAO {
                 statement.addBatch();
             }
 
-            jdbcConnectionsPool.returnObject(currentCon);
             return statement.executeBatch();
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
             //e.printStackTrace();
             throw new ApplicationDAOException();
+        } finally {
+            jdbcConnectionsPool.returnObject(currentCon);
         }
     }
 
     @Override
     public boolean putRejectedToWaitingStatus(Integer userId) throws ApplicationDAOException {
-        logger.info("change application status from rejected to waiting query where userId = " + userId);
         Connection currentCon = jdbcConnectionsPool.borrowObject();
+        logger.info("change application status from rejected to waiting query where userId = " + userId);
         try {
             Statement statement = currentCon/*manager.getConnection()*/.createStatement();
             return statement.execute("update public.\"application\" set status = \'WAITING\'" +
@@ -231,7 +234,7 @@ public class ApplicationDAOImpl implements ApplicationDAO {
         } catch (SQLException e) {
             logger.error(new StringBuilder().append(e.getErrorCode()).append(" ")
                     .append(e.getMessage()).append(System.lineSeparator())
-                    .append(e.getCause()).toString());
+                    .append(e.getStackTrace()).toString());
             //e.printStackTrace();
             throw new ApplicationDAOException();
         } finally {
