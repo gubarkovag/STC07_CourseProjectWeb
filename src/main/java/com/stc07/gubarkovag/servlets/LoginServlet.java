@@ -1,19 +1,47 @@
 package com.stc07.gubarkovag.servlets;
 
+import com.stc07.gubarkovag.logandmailutils.MailSender;
+import com.stc07.gubarkovag.pojo.User;
+import com.stc07.gubarkovag.services.AuthorizationService;
+import com.stc07.gubarkovag.services.AuthorizationServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 public class LoginServlet extends HttpServlet {
+    private static AuthorizationService as = new AuthorizationServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().removeAttribute("user");
         req.getRequestDispatcher("/pages/login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
+
+        Map<Boolean, User> authInfo;
+        if ((authInfo = as.auth(login, password)) != null) {
+            //MailSender.sendEmail(login);
+            //req.getSession().setAttribute("isAuth", true);
+
+            User user = authInfo.get(true);
+
+            req.getSession().setAttribute("user", user);
+
+            resp.sendRedirect("/courseprojectweb/site/" + authInfo.get(true).getRole().toString().toLowerCase());
+        } else {
+            if (login == "" || password == "")
+                req.setAttribute("wrongAuth", "Логин и пароль не должны быть пустыми");
+            else
+                req.setAttribute("wrongAuth", "Пользователь с такими данными не существует");
+            req.getRequestDispatcher("/pages/login.jsp").forward(req, resp);
+        }
     }
 }

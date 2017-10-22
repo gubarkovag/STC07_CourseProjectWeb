@@ -1,18 +1,19 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <t:template>
-    <jsp:include page="applications/viewappsheader.jsp"/>
+    <jsp:include page="userheader.jsp"/>
     <div class="contentBody">
+        <h2>Регистрация нового пользователя</h2>
         <c:choose>
-            <c:when test="${empty wrongAuth}">
+            <c:when test="${empty wrongReg}">
             </c:when>
             <c:otherwise>
-                <h3 class="error">${wrongAuth}</h3>
+                <h3 class="error">${wrongReg}</h3>
             </c:otherwise>
         </c:choose>
-        <form id="authForm" method="post" action="<c:url value="/"/>">
+        <form id="addUserForm" method="post" action="<c:url value="/site/addUser"/>">
             <table>
                 <tr>
                     <td>
@@ -31,11 +32,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <input type="submit" value="Вход"/>
-                    </td>
-                    <td>
-                        <a href="<c:url value="/site/addUser"/>">Регистрация</a>
+                    <td colspan="2">
+                        <input type="submit" value="Регистрация"/>
+                        <%--<a href="<c:url value="/addUser"/>">Регистрация</a>--%>
                     </td>
                 </tr>
             </table>

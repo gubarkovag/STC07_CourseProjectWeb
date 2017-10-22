@@ -11,6 +11,8 @@ public class Book implements Serializable {
     @XmlAttribute
     private Integer id;
     @XmlElement
+    private Integer userId;
+    @XmlElement
     private String name;
     @XmlElement
     private String genre;
@@ -19,8 +21,15 @@ public class Book implements Serializable {
 
     }
 
-    public Book(Integer id, String name, String genre) {
+    public Book(Integer id, Integer userId, String name, String genre) {
         this.id = id;
+        this.userId = userId;
+        this.name = name;
+        this.genre = genre;
+    }
+
+    public Book(Integer userId, String name, String genre) {
+        this.userId = userId;
         this.name = name;
         this.genre = genre;
     }
@@ -31,6 +40,14 @@ public class Book implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -52,8 +69,9 @@ public class Book implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Book: [id = ").append(id).append(", name = ")
-                .append(name).append(", genre = ").append(genre).append("]");
+        sb.append("Book: [id = ").append(id)
+            .append(", user_id = ").append(userId).append(", name = ")
+            .append(name).append(", genre = ").append(genre).append("]");
 
         return sb.toString();
     }
@@ -66,6 +84,7 @@ public class Book implements Serializable {
         Book book = (Book) o;
 
         if (!id.equals(book.id)) return false;
+        if (!userId.equals(book.userId)) return false;
         if (!name.equals(book.name)) return false;
         return genre != null ? genre.equals(book.genre) : book.genre == null;
     }
@@ -73,6 +92,7 @@ public class Book implements Serializable {
     @Override
     public int hashCode() {
         int result = id.hashCode();
+        result = 31 * result + userId.hashCode();
         result = 31 * result + name.hashCode();
         result = 31 * result + (genre != null ? genre.hashCode() : 0);
         return result;
