@@ -19,16 +19,25 @@ public class ConnectionManagerPostgreSQL implements IConnectionManager {
 
     @Override
     public Connection getConnection() {
+        try {
+            connection = DriverManager
+                    .getConnection("jdbc:postgresql://localhost:5432/bookmanager"
+                    , "postgres", "postgres");
+        } catch (SQLException e) {
+            logger.error(new StringBuilder()
+                    .append(e.getMessage()).append(System.lineSeparator())
+                    .append(e.getStackTrace()).toString());
+        }
         return connection;
     }
 
     private ConnectionManagerPostgreSQL() {
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager
+            /*connection = DriverManager
                     .getConnection("jdbc:postgresql://localhost:5432/bookmanager"
-                    , "postgres", "postgres");
-        } catch (ClassNotFoundException | SQLException e) {
+                    , "postgres", "postgres");*/
+        } catch (ClassNotFoundException/* | SQLException*/ e) {
             logger.error(new StringBuilder()
                     .append(e.getMessage()).append(System.lineSeparator())
                     .append(e.getStackTrace()).toString());
