@@ -2,15 +2,19 @@ package com.stc07.gubarkovag.db.dao;
 
 import com.stc07.gubarkovag.db.pooling.JdbcConnectionsPool;
 import com.stc07.gubarkovag.pojo.Book;
+import com.stc07.gubarkovag.springhelperclasses.Loggable;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Repository
+@Loggable
 public class BookDAOImpl implements BookDAO {
-    private static final Logger logger = Logger.getLogger(BookDAOImpl.class);
+    private Logger logger;
 
     public static class BookDAOException extends Exception{}
 

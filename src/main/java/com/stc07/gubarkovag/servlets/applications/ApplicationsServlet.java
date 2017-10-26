@@ -6,8 +6,12 @@ import com.stc07.gubarkovag.services.ApplicationService;
 import com.stc07.gubarkovag.services.ApplicationServiceImpl;
 import com.stc07.gubarkovag.services.BookService;
 import com.stc07.gubarkovag.services.BookServiceImpl;
+import com.stc07.gubarkovag.springhelperclasses.Loggable;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +19,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@Loggable
 public class ApplicationsServlet extends HttpServlet {
-    private static final Logger logger = Logger.getLogger(ApplicationsServlet.class);
+    private Logger logger;
 
-    private static ApplicationService applicationService = new ApplicationServiceImpl();
-    private static BookService bookService = new BookServiceImpl();
+    //private static ApplicationService applicationService = new ApplicationServiceImpl();
+    @Autowired
+    private ApplicationService applicationService;
+    //private static BookService bookService = new BookServiceImpl();
+    @Autowired
+    private BookService bookService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,7 +64,7 @@ public class ApplicationsServlet extends HttpServlet {
                 }
                 case "sendRejectedApplications" : {
                     applicationService.putRejectedToWaitingStatus(userId);
-                    resp.sendRedirect("/courseprojectweb/" + user.getRole().toString().toLowerCase());
+                    resp.sendRedirect("/courseprojectweb/site/" + user.getRole().toString().toLowerCase());
                     break;
                 }
                 case "adminViewApplications" :
@@ -59,11 +74,11 @@ public class ApplicationsServlet extends HttpServlet {
                     break;
                 case "approveApplication" :
                     applicationService.update("APPROVED", Integer.valueOf(req.getParameter("id")));
-                    resp.sendRedirect("/courseprojectweb/adminViewApplications");
+                    resp.sendRedirect("/courseprojectweb/site/adminViewApplications");
                     break;
                 case "rejectApplication" :
                     applicationService.update("REJECTED", Integer.valueOf(req.getParameter("id")));
-                    resp.sendRedirect("/courseprojectweb/adminViewApplications");
+                    resp.sendRedirect("/courseprojectweb/site/adminViewApplications");
                     break;
             }
         } catch (ApplicationServiceImpl.ApplicationServiceException | BookServiceImpl.BookServiceException e) {

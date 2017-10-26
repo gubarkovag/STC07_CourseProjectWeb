@@ -2,15 +2,19 @@ package com.stc07.gubarkovag.db.dao;
 
 import com.stc07.gubarkovag.db.pooling.JdbcConnectionsPool;
 import com.stc07.gubarkovag.pojo.User;
+import com.stc07.gubarkovag.springhelperclasses.Loggable;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Repository
+@Loggable
 public class UserDAOImpl implements UserDAO {
-    private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
+    private Logger logger;
 
     public static class UserDAOException extends Exception{}
 
