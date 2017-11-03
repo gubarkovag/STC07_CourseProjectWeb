@@ -35,7 +35,7 @@ public class Main {
         for (int i = 1; i < 4; i++) {
             User user = new User();
             user.setId(i);
-            user.setLogin("user" + i);
+            user.setUsername("user" + i);
             user.setPassword("password" + i);
             user.setRole(i % 3 == 1 ? User.Role.ADMIN :
                     i % 3 == 2 ? User.Role.AUTHORIZEDUSER :

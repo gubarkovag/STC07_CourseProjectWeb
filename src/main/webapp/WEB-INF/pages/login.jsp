@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -6,13 +6,14 @@
     <jsp:include page="../../pages/applications/viewappsheader.jsp"/>
     <div class="contentBody">
         <c:choose>
-            <c:when test="${empty wrongAuth}">
+            <c:when test="${empty authInfo}">
+                <h3 class="error">Введите данные пользователя</h3>
             </c:when>
             <c:otherwise>
-                <h3 class="error">${wrongAuth}</h3>
+                <h3 class="error">${authInfo}</h3>
             </c:otherwise>
         </c:choose>
-        <form id="authForm" method="post" action="<c:url value="/"/>">
+        <form id="authForm" method="post" action="<c:url value="/appLogin"/>">
             <table>
                 <tr>
                     <td>

@@ -7,6 +7,7 @@ import com.stc07.gubarkovag.services.UserServiceImpl;
 import com.stc07.gubarkovag.springhelperclasses.Loggable;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +29,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    //@PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/site/authorizeduser", method = RequestMethod.GET)
     public String processAuthorizedUser() {
         return "users/authorizeduser";
@@ -78,6 +80,7 @@ public class UserController {
         return "users/viewusers";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/site/editUser", method = RequestMethod.GET)
     public String editUser(@RequestParam(name = "id") String id, Model uiModel) {
         User user = null;

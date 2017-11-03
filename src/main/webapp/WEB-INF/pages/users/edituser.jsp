@@ -38,9 +38,8 @@
                 </td>
                 <td>
                     <form:select path="role">
-                        <form:option value="ADMIN" label="Администратор" />
-                        <form:option value="AUTHORIZEDUSER" label="Авторизованный пользователь" />
-                        <form:option value="NONAUTHORIZEDUSER" label="Неавторизованный пользователь" />
+                        <form:option value="ROLE_ADMIN" label="Администратор" />
+                        <form:option value="ROLE_USER" label="Авторизованный пользователь" />
                     </form:select>
                 </td>
                 <tr>

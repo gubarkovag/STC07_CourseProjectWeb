@@ -19,7 +19,7 @@
                         <label>Логин: </label>
                     </td>
                     <td>
-                        <input type="text" name="login" required/>
+                        <input type="text" name="username" required/>
                     </td>
                 </tr>
                 <tr>

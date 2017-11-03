@@ -13,7 +13,7 @@
                         <label>Логин: </label>
                     </td>
                     <td>
-                        <input type="text" name="login" value="${user.login}" required/>
+                        <input type="text" name="username" value="${user.username}" required/>
                     </td>
                 </tr>
                 <tr>

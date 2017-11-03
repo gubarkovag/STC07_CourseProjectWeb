@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true">
+        <form-login
+                login-page="/"
+                authentication-failure-url="/"
+                login-processing-url="/appLogin"
+                default-target-url="/"
+                username-parameter="login"
+                password-parameter="password" />
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/" invalidate-session="true"/>
+
+        <intercept-url pattern='/' access='permitAll' />
+        <intercept-url pattern='/viewApprovedApplications' access='permitAll' />
+        <intercept-url pattern='/site/addUser' access='permitAll' />
+        <intercept-url pattern='/site/**' access="hasAnyRole('ADMIN','USER')" />
+
+        <csrf disabled="true"/>
+    </http>
+
+    <beans:bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="org.postgresql.Driver" />
+        <beans:property name="url" value="jdbc:postgresql://localhost:5432/bookmanager" />
+        <beans:property name="username" value="postgres" />
+        <beans:property name="password" value="postgres" />
+    </beans:bean>
+    <authentication-manager erase-credentials="false">
+        <authentication-provider>
+            <!--<user-service>
+                <user name="admin" password="12345" authorities="ROLE_admin" />
+                <user name="authorizeduser" password="12345" authorities="ROLE_authorizeduser" />
+            </user-service>-->
+            <jdbc-user-service data-source-ref="datasource"
+                users-by-username-query="select login, password, TRUE from users where login = ?"
+                authorities-by-username-query="select login, role from users where login = ?"
+            />
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>
