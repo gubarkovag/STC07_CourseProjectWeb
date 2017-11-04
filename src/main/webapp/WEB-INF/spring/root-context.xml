@@ -12,7 +12,7 @@
                                   com.stc07.gubarkovag.controllers"/>-->
     <!--<context:component-scan base-package="com.stc07.gubarkovag.db.daojpa
                                   com.stc07.gubarkovag.servicesjpa
-                                  com.stc07.gubarkovag.controllersJPA"/>-->
+                              com.stc07.gubarkovag.controllersjpasJPA"/>-->
 
     <import resource="classpath:META-INF/spring/datasource-tx-jpa.xml" />
     <import resource="classpath:META-INF/spring/security-context.xml" />

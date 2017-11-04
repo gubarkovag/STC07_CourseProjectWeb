@@ -19,6 +19,8 @@
           p:username="${jdbc.username}"
           p:password="${jdbc.password}"/>
 
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emf"/>
     </bean>
@@ -43,7 +45,7 @@
 
     <context:property-placeholder location="classpath:META-INF/spring/jdbc.properties"/>
 
-    <jpa:repositories base-package="com.stc07.gubarkovag.db.*"
+    <jpa:repositories base-package="com.stc07.gubarkovag.db.daospringdatajpa"
                       entity-manager-factory-ref="emf"
                       transaction-manager-ref="transactionManager"/>
 </beans>

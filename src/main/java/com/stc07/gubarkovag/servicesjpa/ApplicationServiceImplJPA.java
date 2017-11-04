@@ -38,18 +38,13 @@ public class ApplicationServiceImplJPA implements ApplicationServiceJPA {
         return applicationDAOJPA.save(application);
     }
 
-    /*@Override
-    public List<Application> saveAll(List<Application> applications) {
-        return applicationDAOJPA.saveAll(applications);
-    }*/
-
     @Override
     public void changeApplicationStatus(Application.Status status, Long id) {
         applicationDAOJPA.changeApplicationStatus(status, id);
     }
 
     @Override
-    public void putRejectedToWaitingStatus(User user/*Long userId*/) {
-        applicationDAOJPA.putRejectedToWaitingStatus(user/*userId*/);
+    public void putRejectedToWaitingStatus(User user) {
+        applicationDAOJPA.putRejectedToWaitingStatus(user);
     }
 }

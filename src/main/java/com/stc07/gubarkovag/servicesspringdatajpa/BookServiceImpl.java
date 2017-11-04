@@ -1,11 +1,10 @@
-package com.stc07.gubarkovag.servicesjpa;
+package com.stc07.gubarkovag.servicesspringdatajpa;
 
-import com.stc07.gubarkovag.db.daojpa.BookDAOJPA;
+import com.stc07.gubarkovag.db.daospringdatajpa.BookRepository;
 import com.stc07.gubarkovag.db.entities.Application;
 import com.stc07.gubarkovag.db.entities.Book;
 import com.stc07.gubarkovag.db.entities.User;
 import com.stc07.gubarkovag.springhelperclasses.Loggable;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,33 +12,31 @@ import java.util.List;
 
 @Service
 @Loggable
-public class BookServiceImplJPA implements BookServiceJPA {
-    private Logger logger;
-
-    private BookDAOJPA bookDAOJPA;
+public class BookServiceImpl implements BookService {
+    private BookRepository bookRepository;
 
     @Autowired
-    public BookServiceImplJPA(BookDAOJPA bookDAOJPA) {
-        this.bookDAOJPA = bookDAOJPA;
+    public BookServiceImpl(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     @Override
     public Book save(Book book) {
-        return bookDAOJPA.save(book);
+        return bookRepository.save(book);
     }
 
     @Override
     public Book getById(Long id) {
-        return bookDAOJPA.getById(id);
+        return bookRepository.findOne(id);
     }
 
     @Override
     public List<Book> getAppsByStatus(Application.Status status) {
-        return bookDAOJPA.getAppsByStatus(status);
+        return bookRepository.getAppsByStatus(status);
     }
 
     @Override
     public List<Book> getAppsByStatusAndUser(Application.Status status, User user) {
-        return bookDAOJPA.getAppsByStatusAndUser(status, user);
+        return bookRepository.getAppsByStatusAndUser(status, user);
     }
 }

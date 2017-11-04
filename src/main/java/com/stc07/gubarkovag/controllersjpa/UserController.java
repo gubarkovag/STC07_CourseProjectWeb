@@ -1,4 +1,4 @@
-package com.stc07.gubarkovag.controllersJPA;
+package com.stc07.gubarkovag.controllersjpa;
 
 import com.stc07.gubarkovag.db.entities.User;
 import com.stc07.gubarkovag.servicesjpa.UserServiceJPA;
