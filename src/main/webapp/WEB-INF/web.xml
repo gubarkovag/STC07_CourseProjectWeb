@@ -4,7 +4,75 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <!-- Spring Application Context Configuration -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/root-context.xml</param-value>
+    </context-param>
+
+    <!-- Spring Security Configuration -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Spring MVC Dispatcher Servlet Configuration -->
     <servlet>
+        <servlet-name>MainDispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- Servlet Context Configuration -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MainDispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- Other Configuration -->
+    <!--<listener>
+        <listener-class>com.stc07.gubarkovag.servlets.listeners.SessionAttributeSetter</listener-class>
+    </listener>-->
+
+    <!--<filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
+
+    <!--<filter>
+        <filter-name>Login</filter-name>
+        <filter-class>com.stc07.gubarkovag.servlets.filters.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Login</filter-name>
+        <url-pattern>/site/*</url-pattern>
+    </filter-mapping>-->
+
+    <!--<servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.stc07.gubarkovag.servlets.LoginServlet</servlet-class>
     </servlet>
@@ -36,10 +104,10 @@
         <servlet-class>com.stc07.gubarkovag.servlets.applications.AddApplicationServlet</servlet-class>
     </servlet>
 
-    <!--<servlet>
+    &lt;!&ndash;<servlet>
         <servlet-name>AdminApplicationsServlet</servlet-name>
         <servlet-class>com.stc07.gubarkovag.servlets.applications.AdminApplicationsServlet</servlet-class>
-    </servlet>-->
+    </servlet>&ndash;&gt;
 
 
     <servlet>
@@ -50,15 +118,15 @@
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
         <servlet-class>com.stc07.gubarkovag.servlets.users.AdminServlet</servlet-class>
-    </servlet>
+    </servlet>-->
 
 
-    <listener>
+    <!--<listener>
         <listener-class>com.stc07.gubarkovag.servlets.listeners.SessionAttributeSetter</listener-class>
-    </listener>
+    </listener>-->
 
 
-    <servlet-mapping>
+    <!--<servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
@@ -129,9 +197,9 @@
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/site/admin</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
-    <filter>
+    <!--<filter>
         <filter-name>Login</filter-name>
         <filter-class>com.stc07.gubarkovag.servlets.filters.AuthFilter</filter-class>
     </filter>
@@ -139,5 +207,5 @@
     <filter-mapping>
         <filter-name>Login</filter-name>
         <url-pattern>/site/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 </web-app>

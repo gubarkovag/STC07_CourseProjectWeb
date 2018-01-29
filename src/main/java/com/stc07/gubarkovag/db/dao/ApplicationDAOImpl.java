@@ -4,15 +4,19 @@ import com.stc07.gubarkovag.db.pooling.ConnectionManagerPostgreSQL;
 import com.stc07.gubarkovag.db.pooling.IConnectionManager;
 import com.stc07.gubarkovag.db.pooling.JdbcConnectionsPool;
 import com.stc07.gubarkovag.pojo.Application;
+import com.stc07.gubarkovag.springhelperclasses.Loggable;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Repository
+@Loggable
 public class ApplicationDAOImpl implements ApplicationDAO {
-    private static final Logger logger = Logger.getLogger(ApplicationDAOImpl.class);
+    private Logger logger;
 
     public static class ApplicationDAOException extends Exception{}
 

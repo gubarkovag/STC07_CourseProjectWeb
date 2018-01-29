@@ -3,17 +3,27 @@ package com.stc07.gubarkovag.services;
 import com.stc07.gubarkovag.db.dao.ApplicationDAO;
 import com.stc07.gubarkovag.db.dao.ApplicationDAOImpl;
 import com.stc07.gubarkovag.pojo.Application;
+import com.stc07.gubarkovag.springhelperclasses.Loggable;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Service
+@Loggable
 public class ApplicationServiceImpl implements  ApplicationService{
-    private static final Logger logger = Logger.getLogger(ApplicationServiceImpl.class);
+    private Logger logger;
 
     public static class ApplicationServiceException extends Exception {}
 
-    private static ApplicationDAO applicationDAO = new ApplicationDAOImpl();
+    private ApplicationDAO applicationDAO;
+
+    @Autowired
+    public ApplicationServiceImpl(ApplicationDAO applicationDAO) {
+        this.applicationDAO = applicationDAO;
+    }
 
     @Override
     public List<Application> getAll() throws ApplicationServiceException {

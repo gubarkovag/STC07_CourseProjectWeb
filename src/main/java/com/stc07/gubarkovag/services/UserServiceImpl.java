@@ -3,17 +3,27 @@ package com.stc07.gubarkovag.services;
 import com.stc07.gubarkovag.db.dao.UserDAO;
 import com.stc07.gubarkovag.db.dao.UserDAOImpl;
 import com.stc07.gubarkovag.pojo.User;
+import com.stc07.gubarkovag.springhelperclasses.Loggable;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Service
+@Loggable
 public class UserServiceImpl implements UserService {
-    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
+    private Logger logger;
 
     public static class UserServiceException extends Exception {}
 
-    private static UserDAO userDAO = new UserDAOImpl();
+    private UserDAO userDAO;
+
+    @Autowired
+    public UserServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public List<User> getAll() throws UserServiceException {

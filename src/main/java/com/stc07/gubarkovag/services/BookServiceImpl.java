@@ -3,17 +3,27 @@ package com.stc07.gubarkovag.services;
 import com.stc07.gubarkovag.db.dao.BookDAO;
 import com.stc07.gubarkovag.db.dao.BookDAOImpl;
 import com.stc07.gubarkovag.pojo.Book;
+import com.stc07.gubarkovag.springhelperclasses.Loggable;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Service
+@Loggable
 public class BookServiceImpl implements BookService {
-    private static final Logger logger = Logger.getLogger(BookServiceImpl.class);
+    private Logger logger;
 
     public static class BookServiceException extends Exception {}
 
-    private static BookDAO bookDAO = new BookDAOImpl();
+    private BookDAO bookDAO;
+
+    @Autowired
+    public BookServiceImpl(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
+    }
 
     @Override
     public List<Book> getAppsByStatus(String status) throws BookServiceException {

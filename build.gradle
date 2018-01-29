@@ -17,4 +17,19 @@ dependencies {
     compile group: 'jstl', name: 'jstl', version: '1.2'
     compile group: 'log4j', name: 'log4j', version: '1.2.16'
     compile group: 'javax.mail', name: 'mail', version: '1.4'
+    compile group: 'org.springframework', name: 'spring-context', version: '4.3.12.RELEASE'
+    compile group: 'org.springframework', name: 'spring-web', version: '4.3.11.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.12.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.2.3.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.2.3.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '4.2.3.RELEASE'
+
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.3.8.Final'
+
+    compile group: 'org.springframework', name: 'spring-orm', version: '4.3.9.RELEASE'
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.5.0.RELEASE'
+
+    compile group: 'com.google.guava', name: 'guava', version: '14.0.1'
+
 }

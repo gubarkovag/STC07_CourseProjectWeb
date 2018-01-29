@@ -20,7 +20,7 @@
       </tr>
       <c:forEach items="${users}" var="user">
         <tr>
-          <td>${user.login}</td>
+          <td>${user.username}</td>
           <td>${user.password}</td>
           <td>${user.role}</td>
           <td><a href="<c:url value="/site/editUser?id=${user.id}"/>">Редактировать</a></td>

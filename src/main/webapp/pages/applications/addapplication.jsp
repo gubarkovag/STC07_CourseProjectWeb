@@ -5,7 +5,7 @@
 <t:template>
   <jsp:include page="../users/userheader.jsp"/>
   <div class="contentBody">
-    <form method="post" action="/site/addApplication">
+    <form method="post" action="<c:url value="/site/addApplication"/>">
     <table>
       <tr>
         <td>
